@@ -13,6 +13,7 @@ namespace Chapter3
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             #region 5文字以下の国
