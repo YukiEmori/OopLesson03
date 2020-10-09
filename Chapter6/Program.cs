@@ -9,50 +9,89 @@ using System.Threading.Tasks;
 namespace Chapter6 {
     class Program {
         static void Main(string[] args) {
-            //整数の例
-            var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24, };
-
-            var strings = numbers.Select(n => n.ToString("0000")).Distinct().ToArray();
-            foreach (var str in strings) {
-                Console.Write(str + " ");
-            }
-            Console.WriteLine();
-            numbers.Select(n => n.ToString("0000")).Distinct().ToList().ForEach(s=> Console.Write(s + " "));
-
-
-            //並べ替え
-            Console.WriteLine();
-            var sortedNumbers = numbers.OrderBy(n => n);
-            foreach (var nums in sortedNumbers) {
-                Console.Write(nums + " ");
-            }
             
-            //文字列の例
-            Console.WriteLine("\n\n----------");
-            var words = new List<string> {
-                "Microsoft","Apple","Google","Oracle","Facebook", 
+            var numbers = new int[] { 5,10,17,9,3,21,10,40,21,3,35 };
+
+            //6-1-1
+            Console.WriteLine("\n6-1-1");
+            var max = numbers.Max(n => n);
+            Console.WriteLine($"最大値:{max}");
+
+            //6-1-2
+            Console.WriteLine("\n6-1-2");
+            var index = numbers.Length - 2;
+;            foreach (var number in numbers.Skip(index)) {
+                Console.WriteLine(number);
+            }
+            //6-1-3
+            Console.WriteLine("\n6-1-3");
+            var str = numbers.Select(x=> x.ToString());
+            foreach (var n in str) {
+                Console.Write(n + " ");
+            }
+            //6-1-4
+            Console.WriteLine("\n\n6-1-4");
+            var num = numbers.OrderBy(x => x).Take(3);
+            foreach (var n in num) {
+                Console.Write(n + " ");
+            }
+            //6-1-5
+            Console.WriteLine("\n\n6-1-5");
+            var count = numbers.Distinct().Where(x=> x>10).Count();
+            Console.WriteLine(count);
+
+            //6-2
+            var books = new List<Book> {
+               new Book { Title = "C#プログラミングの新常識", Price = 3800, Pages = 378 },
+               new Book { Title = "ラムダ式とLINQの極意", Price = 2500, Pages = 312 },
+               new Book { Title = "ワンダフル・C#ライフ", Price = 2900, Pages = 385 },
+               new Book { Title = "一人で学ぶ並列処理プログラミング", Price = 4800, Pages = 464 },
+               new Book { Title = "フレーズで覚えるC#入門", Price = 5300, Pages = 604 },
+               new Book { Title = "私でも分かったASP.NET MVC", Price = 3200, Pages = 453 },
+               new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
             };
-            //小文字にする ToArrya　=　即時実行
-            var lower = words.Select(name => name.ToLower().ToArray());
 
+            //6-2-1
+            Console.WriteLine("\n6-2-1");
+            var titles = books.Where(x => x.Title.Equals("ワンダフル・C#ライフ"));
+            foreach (var item in titles) {
+                Console.WriteLine($"価格:{item.Price}　ページ数:{item.Pages}");
+            }
+            //6-2-2
+            Console.WriteLine("\n6-2-2");
+            var counts = books.Where(x => x.Title.Contains("C#")).Count();
+            Console.WriteLine(counts);
+            //6-2-3
+            Console.WriteLine("\n6-2-3");
+            var avgpage = books.Where(x => x.Title.Contains("C#")).Average(x=> x.Pages);
+            Console.WriteLine(avgpage);
+            //6-2-4
+            Console.WriteLine("\n6-2-4");
+            var title = books.FirstOrDefault(x => x.Price >= 4000);
+            if (title != null) {
+                Console.WriteLine(title.Title);
+            }
+            //6-2-5
+            Console.WriteLine("\n6-2-5");
+            var maxpage = books.Where(x => x.Price < 4000).Max(x=> x.Pages);
+            Console.WriteLine(maxpage);
 
-            //オブジェクトの例
-            Console.WriteLine("\n\n----------");
-            var books = Books.GetBooks();
-            //タイトルリスト
-            var titles = books.Select(name => name.Title);
-
-            foreach (var title in titles) {
-                Console.Write(title + " ");
+            //6-2-6
+            Console.WriteLine("\n6-2-6");
+            var sort = books.Where(x => x.Pages >= 400).OrderByDescending(x=> x.Price);
+            foreach (var item in sort) {
+                Console.WriteLine($"タイトル:{item.Title} 価格:{item.Price}");
+            }
+            //6-2-7
+            Console.WriteLine("\n6-2-7");
+            var titless = books.Where(x => x.Title.Contains("C#") && x.Pages <= 500);
+            foreach (var item in titless) {
+                Console.WriteLine(item.Title);
             }
 
-            //ページ数の多い順に並べかえ(または金額の高い順)
-            Console.WriteLine();
-            Console.Write("ページ数の多い順:");
-            books.OrderByDescending(n => n.Pages).Take(3).ToList().ForEach(x=> Console.Write(x.Pages + " "));
-            Console.WriteLine();
-            Console.Write("金額の高い順:");
-            books.OrderByDescending(n => n.Price).ToList().ForEach(x => Console.Write(x.Price + " "));
+
+
+
         }
     }
 }
