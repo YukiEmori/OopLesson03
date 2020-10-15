@@ -6,56 +6,53 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Chapter7 {
-    class Program {
-        static void Main(string[] args) {
+	class Program {
+		static void Main(string[] args) {
 
-            //var lines = File.ReadAllLines("sample.txt");
-            //var we = new WordsExtractor(lines);
-            //foreach (var word in we.Extract()) {
-            //    Console.WriteLine(word);
-            //}
+			string n = "";
+			var dict = new Dictionary<string, List<string>>() {
+				//{ "PC", new List<string> { "パーソナル コンピュータ", "プログラム カウンタ", } },
+				//{ "CD", new List<string> { "コンパクト ディスク", "キャッシュ ディスペンサー", } },
+			};
 
+			Console.WriteLine("**********************\n* 辞書登録プログラム *\n**********************");
+			do {
+				Console.WriteLine("1.登録 2.内容表示 3.終了");
+				Console.Write(">");
+				n = Console.ReadLine();
+				DuplicateKeySample();
+				Console.WriteLine();
+				Console.WriteLine();
+			}
+			while (n == "1" || n == "2");
 
-            //var dict = new Dictionary<MonthDay, string> {
-            //    {new MonthDay(3,5),"珊瑚の日" },
-            //    {new MonthDay(8,4),"箸の日" },
-            //    {new MonthDay(10,3),"登山の日" },
-            //};
+			void DuplicateKeySample() {
+				// ディクショナリに追加
+				if (n == "1") {
+					Console.Write("KEYを入力:");
+					var key = Console.ReadLine();
+					Console.Write("VALUEを入力:");
+					var value = Console.ReadLine();
+					Console.WriteLine("登録しました!");
+					if (dict.ContainsKey(key)) {
+						dict[key].Add(value);
+					} else {
+						dict[key] = new List<string> { value };
+					}
+				}
 
-            //var md = new MonthDay(8,4);
-            //var s = dict[md];
-            //Console.WriteLine(s); 
+				// ディクショナリの内容を列挙
+				if (n == "2") {
+					foreach (var item in dict) {
+						foreach (var term in item.Value) {
+							Console.WriteLine("{0} : {1}", item.Key, term);
+						}
+					}
+				}
+			}
 
+		}
 
-            DuplicateKeySample();
-        }
-        static public void DuplicateKeySample() {
-                // ディクショナリの初期化
-                var dict = new Dictionary<string, List<string>>() {
-               { "PC", new List<string> { "パーソナル コンピュータ", "プログラム カウンタ", } },
-               { "CD", new List<string> { "コンパクト ディスク", "キャッシュ ディスペンサー", } },
-            };
-
-                // ディクショナリに追加
-                var key = "EC";
-                var value = "電子商取引";
-                if (dict.ContainsKey(key)) {
-                    dict[key].Add(value);
-                } else {
-                    dict[key] = new List<string> { value };
-                }
-
-                // ディクショナリの内容を列挙
-                foreach (var item in dict) {
-                    foreach (var term in item.Value) {
-                        Console.WriteLine("{0} : {1}", item.Key, term);
-                    }
-                }
-            }
-
-           
-        
-    }
+	}
 }
-
 
