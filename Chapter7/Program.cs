@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Chapter7 {
-	class Abbreviations : IEnumerable<KeyValuePair<string, string>> {
+public	class Abbreviations : IEnumerable<KeyValuePair<string, string>> {
 		static void Main(string[] args) {
             string moji = "Cozy lummox gives smart squid who asks for job pen";
 
