@@ -44,17 +44,23 @@ namespace SendMailApp {
 
                 MailMessage msg = new MailMessage("ojsinfosys01@gmail.com" ,tbTo.Text);
 
-                string[] arrcc = tbCc.Text.Split(',');
 
-                foreach (var item in arrcc) {
-                    msg.CC.Add(item);
+
+                if (tbCc.Text != "") {
+                    string[] arrcc = tbCc.Text.Split(',');
+                    foreach (var item in arrcc) {
+                        msg.CC.Add(item);
+                    }
                 }
+                //msg.CC.Add(tbCc.Text);
 
-                string[] arrbcc = tbBcc.Text.Split(',');
-
-                foreach (var item in arrbcc) {
-                    msg.Bcc.Add(item);
+                if(tbBcc.Text != "") {
+                    string[] arrbcc = tbBcc.Text.Split(',');
+                    foreach (var item in arrbcc) {
+                        msg.Bcc.Add(item);
+                    }
                 }
+                // msg.Bcc.Add(tbBcc.Text);
 
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text; //本文
