@@ -65,6 +65,21 @@
             </Grid>
         </GroupBox>
 
+        <Grid Grid.Row="2"  >
+            <Grid.ColumnDefinitions>
+                 <ColumnDefinition Width="6*"/>
+                 <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button x:Name="btDefault" Content="初期値" Width="80" Margin="10" Click="btDefault_Click"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="btOk" Content="OK" Width="80" Margin="10"/>
+                <Button x:Name="btCancel" Content="キャンセル" Width="80" Margin="10"/>
+                <Button x:Name="btApply" Content="適用" Width="80" Margin="10" Click="btApply_Click"/>
+            </StackPanel>
+                        
+        </Grid>
 
     </Grid>
     
