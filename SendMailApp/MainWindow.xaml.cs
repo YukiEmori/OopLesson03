@@ -39,10 +39,10 @@ namespace SendMailApp {
 
         //メール送信処理
         private void btOk_Click(object sender, RoutedEventArgs e) {
-         
+            Config cc = Config.GetInstance();
                 try {
 
-                MailMessage msg = new MailMessage("ojsinfosys01@gmail.com" ,tbTo.Text);
+                MailMessage msg = new MailMessage(cc.MailAddres ,tbTo.Text);
 
 
 
@@ -65,10 +65,10 @@ namespace SendMailApp {
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text; //本文
 
-                sc.Host = "smtp.gmail.com"; //SMTPサーバーの設定
-                sc.Port = 587;
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential("ojsinfosys01@gmail.com", "ojsInfosys2020");
+                sc.Host =cc.Smtp; //SMTPサーバーの設定
+                sc.Port = cc.Port;
+                sc.EnableSsl = cc.Ssl;
+                sc.Credentials = new NetworkCredential(cc.MailAddres, cc.PassWord);
 
                 sc.SendMailAsync(msg); //送信
 
