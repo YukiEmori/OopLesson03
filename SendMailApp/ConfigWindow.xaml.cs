@@ -41,7 +41,30 @@ namespace SendMailApp {
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
                 cbSsl.IsChecked ?? false); //更新処理を呼び出す
-            
+
+        }
+        
+        //OKボタン
+        private void btOk_Click(object sender, RoutedEventArgs e) {
+            btApply_Click(sender,e);
+            this.Close();
+        }
+
+        //キャンセルボタン
+        private void btCancel_Click(object sender, RoutedEventArgs e) {
+            this.Close();
+        }
+
+        //ロード時に一度だけ呼び出される
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            Config cf = Config.GetInstance();
+            tbSmtp.Text = cf.Smtp;
+            tbUserName.Text = cf.MailAddres;
+            tbSender.Text = cf.MailAddres;
+            tbPort.Text = cf.Port.ToString();
+            tbPassWord.Password = cf.PassWord;
+            cbSsl.IsChecked = cf.Ssl;
+
         }
     }
 }
