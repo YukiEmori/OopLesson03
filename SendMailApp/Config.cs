@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace SendMailApp {
-   public class Config {
+    public class Config {
         //単一のインスタンス
         private static Config instance;
+
+
 
         //インスタンスの取得
         public static Config GetInstance() {
@@ -25,7 +29,7 @@ namespace SendMailApp {
         public int Port { get; set; }       //ポート番号
         public bool Ssl { get; set; }       //SSL設定
 
-        
+
 
         //コンストラクタ(外部からnewできないようにする)
         private Config() {
@@ -54,7 +58,7 @@ namespace SendMailApp {
         }
 
         //設定データ更新
-        public bool UpdateStatus(string smtp, string mailAddress,string passWord,
+        public bool UpdateStatus(string smtp, string mailAddress, string passWord,
                                                     int port, bool ssl) {
             this.Smtp = smtp;
             this.MailAddres = mailAddress;
@@ -64,6 +68,39 @@ namespace SendMailApp {
 
             return true;
         }
+       
+        public void Serialise() { //シリアル化
+
+            var obj = new Config() {
+                Smtp = this.Smtp,
+                MailAddres = this.MailAddres,
+                PassWord = this.PassWord,
+                Port = this.Port,
+                Ssl = this.Ssl
+            };
+
+            using (var write = XmlWriter.Create("config.xml")) {
+                var serializer = new XmlSerializer(obj.GetType());
+                serializer.Serialize(write, obj);
+            }
+        }
+
+        public void DeSerialise() { //逆シリアル化
+
+            using (var reader = XmlReader.Create("config.xml")) {
+                var serializer = new XmlSerializer(typeof(Config));
+                var obj = serializer.Deserialize(reader) as Config;
+                Console.WriteLine(obj);
+
+                this.Smtp = obj.Smtp;
+                this.MailAddres = obj.MailAddres;
+                this.PassWord = obj.PassWord;
+                this.Port = obj.Port;
+                this.Ssl = obj.Ssl;
+            }
+
+        }
 
     }
 }
+
