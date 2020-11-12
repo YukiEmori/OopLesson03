@@ -35,12 +35,20 @@ namespace SendMailApp {
 
         //適用(更新)
         private void btApply_Click(object sender, RoutedEventArgs e) {
-            (Config.GetInstance()).UpdateStatus(
+
+           
+            if (tbUserName.Text == "" || tbSmtp.Text == "" ||
+                tbPassWord.Password == "" || tbPort.Text == "0") {
+
+                MessageBox.Show("未入力なところがあります。");
+            } else {
+                (Config.GetInstance()).UpdateStatus(
                 tbSmtp.Text,
                 tbUserName.Text,
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
                 cbSsl.IsChecked ?? false); //更新処理を呼び出す
+            }
 
         }
         
