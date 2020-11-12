@@ -71,17 +71,11 @@ namespace SendMailApp {
        
         public void Serialise() { //シリアル化
 
-            var obj = new Config() {
-                Smtp = this.Smtp,
-                MailAddres = this.MailAddres,
-                PassWord = this.PassWord,
-                Port = this.Port,
-                Ssl = this.Ssl
-            };
+            Config cc = instance;
 
             using (var write = XmlWriter.Create("config.xml")) {
-                var serializer = new XmlSerializer(obj.GetType());
-                serializer.Serialize(write, obj);
+                var serializer = new XmlSerializer(cc.GetType());
+                serializer.Serialize(write, cc);
             }
         }
 
@@ -90,7 +84,7 @@ namespace SendMailApp {
             using (var reader = XmlReader.Create("config.xml")) {
                 var serializer = new XmlSerializer(typeof(Config));
                 var obj = serializer.Deserialize(reader) as Config;
-                Console.WriteLine(obj);
+           
 
                 this.Smtp = obj.Smtp;
                 this.MailAddres = obj.MailAddres;
