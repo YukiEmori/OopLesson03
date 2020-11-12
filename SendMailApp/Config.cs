@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -70,27 +71,33 @@ namespace SendMailApp {
         }
        
         public void Serialise() { //シリアル化
+            try {
+                Config cc = instance;
 
-            Config cc = instance;
-
-            using (var write = XmlWriter.Create("config.xml")) {
-                var serializer = new XmlSerializer(cc.GetType());
-                serializer.Serialize(write, cc);
+                using (var write = XmlWriter.Create("config.xml")) {
+                    var serializer = new XmlSerializer(cc.GetType());
+                    serializer.Serialize(write, cc);
+                }
+            } catch (FileNotFoundException) {
+                MessageBox.Show("シリアル化できません");
             }
         }
 
         public void DeSerialise() { //逆シリアル化
+            try {
+                using (var reader = XmlReader.Create("config.xml")) {
+                    var serializer = new XmlSerializer(typeof(Config));
+                    var obj = serializer.Deserialize(reader) as Config;
 
-            using (var reader = XmlReader.Create("config.xml")) {
-                var serializer = new XmlSerializer(typeof(Config));
-                var obj = serializer.Deserialize(reader) as Config;
-           
 
-                this.Smtp = obj.Smtp;
-                this.MailAddres = obj.MailAddres;
-                this.PassWord = obj.PassWord;
-                this.Port = obj.Port;
-                this.Ssl = obj.Ssl;
+                    this.Smtp = obj.Smtp;
+                    this.MailAddres = obj.MailAddres;
+                    this.PassWord = obj.PassWord;
+                    this.Port = obj.Port;
+                    this.Ssl = obj.Ssl;
+                }
+            } catch (FileNotFoundException) {
+                MessageBox.Show("シリアル化できません");
             }
 
         }
