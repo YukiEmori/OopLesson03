@@ -7,10 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace SendMailApp {
     /// <summary>
@@ -60,7 +62,12 @@ namespace SendMailApp {
 
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            this.Close();
+            DialogResult dr = MessageBox.Show("変更が反映されていません", "確認", MessageBoxButtons.OKCancel);
+            if (dr == System.Windows.Forms.DialogResult.OK) {
+                MessageBox.Show("キャンセルしました。");
+                this.Close();
+            }
+            
         }
 
         //ロード時に一度だけ呼び出される
