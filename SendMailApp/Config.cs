@@ -73,22 +73,24 @@ namespace SendMailApp {
         public void Serialise() { //シリアル化
             try {
                 Config cc = instance;
-
+                
                 using (var write = XmlWriter.Create("config.xml")) {
                     var serializer = new XmlSerializer(cc.GetType());
                     serializer.Serialize(write, cc);
                 }
-            } catch (FileNotFoundException) {
-                MessageBox.Show("シリアル化できません");
+
+                
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
 
         public void DeSerialise() { //逆シリアル化
             try {
+
                 using (var reader = XmlReader.Create("config.xml")) {
                     var serializer = new XmlSerializer(typeof(Config));
                     var obj = serializer.Deserialize(reader) as Config;
-
 
                     this.Smtp = obj.Smtp;
                     this.MailAddres = obj.MailAddres;
@@ -96,8 +98,9 @@ namespace SendMailApp {
                     this.Port = obj.Port;
                     this.Ssl = obj.Ssl;
                 }
-            } catch (FileNotFoundException) {
-                MessageBox.Show("シリアル化できません");
+            } catch (Exception) {
+                ConfigWindow configWindow = new ConfigWindow();  //設定画面のインスタンスを生成
+                configWindow.ShowDialog();        
             }
 
         }
