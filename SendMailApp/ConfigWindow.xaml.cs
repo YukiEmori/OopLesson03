@@ -62,11 +62,14 @@ namespace SendMailApp {
 
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            DialogResult dr = MessageBox.Show("変更が反映されていません", "確認", MessageBoxButtons.OKCancel);
-            if (dr == System.Windows.Forms.DialogResult.OK) {
-                MessageBox.Show("キャンセルしました。");
-                this.Close();
+            if (Config.GetInstance() != ) {
+                DialogResult dr = MessageBox.Show("変更が反映されていません", "確認", MessageBoxButtons.OKCancel);
+                if (dr == System.Windows.Forms.DialogResult.OK) {
+                    MessageBox.Show("キャンセルしました。");
+                    this.Close();
+                }
             }
+            
             
         }
 
