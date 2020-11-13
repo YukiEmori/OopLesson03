@@ -18,6 +18,9 @@ namespace SendMailApp {
     /// <summary>
     /// ConfigWindow.xaml の相互作用ロジック
     /// </summary>
+    /// 
+    
+
     public partial class ConfigWindow : Window {
         public ConfigWindow() {
             InitializeComponent();
@@ -50,6 +53,7 @@ namespace SendMailApp {
                 tbPassWord.Password,
                 int.Parse(tbPort.Text),
                 cbSsl.IsChecked ?? false); //更新処理を呼び出す
+                bChanged = false;
             }
 
         }
@@ -62,16 +66,18 @@ namespace SendMailApp {
 
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            //if (Config.GetInstance() != ) {
-            //    DialogResult dr = MessageBox.Show("変更が反映されていません", "確認", MessageBoxButtons.OKCancel);
-            //    if (dr == System.Windows.Forms.DialogResult.OK) {
-            //        MessageBox.Show("キャンセルしました。");
-            //        this.Close();
-            //    }　
-            //}
-            
-            
+
+            if (bChanged) {
+                DialogResult dr = MessageBox.Show("変更が反映されていません", "確認", MessageBoxButtons.OKCancel);
+                if (dr == System.Windows.Forms.DialogResult.OK) {
+                    this.Close();
+                } else {
+                    MessageBox.Show("キャンセルしました。");
+                }
+            }
         }
+
+       
 
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -82,7 +88,14 @@ namespace SendMailApp {
             tbPort.Text = cf.Port.ToString();
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
+            bChanged = false;
 
         }
+
+        private bool bChanged = false;
+        private void tbSmtp_TextChanged(object sender, TextChangedEventArgs e) {
+            bChanged = true;
+        }
+
     }
 }
