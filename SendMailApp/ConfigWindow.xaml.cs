@@ -68,6 +68,7 @@ namespace SendMailApp {
             //        MessageBox.Show("キャンセルしました。");
             //        this.Close();
             //    }
+            
 
 
             //}
