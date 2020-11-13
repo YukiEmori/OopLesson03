@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -61,7 +62,11 @@ namespace SendMailApp {
                     }
                 }
                 // msg.Bcc.Add(tbBcc.Text);
+                //string jpgname = addfile.Items.ToString();
+                //System.Net.Mail.Attachment attachment;
+                //attachment = new System.Net.Mail.Attachment(jpgname);
 
+                //msg.Attachments.Add(attachment);
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text; //本文
 
@@ -69,6 +74,7 @@ namespace SendMailApp {
                 sc.Port = cc.Port;
                 sc.EnableSsl = cc.Ssl;
                 sc.Credentials = new NetworkCredential(cc.MailAddres, cc.PassWord);
+                
 
                 sc.SendMailAsync(msg); //送信
 
@@ -102,6 +108,13 @@ namespace SendMailApp {
 
         private void Window_Closed(object sender, EventArgs e) {
             Config.GetInstance().Serialise();
+        }
+
+        private void addfileBT_Click(object sender, RoutedEventArgs e) {
+            var fod = new OpenFileDialog();
+            if(fod.ShowDialog() == true) {
+                addfile.Items.Add(fod.FileName);
+            }
         }
     }
 }

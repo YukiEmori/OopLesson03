@@ -58,6 +58,8 @@ namespace SendMailApp {
             return obj;
         }
 
+       
+
         //設定データ更新
         public bool UpdateStatus(string smtp, string mailAddress, string passWord,
                                                     int port, bool ssl) {
