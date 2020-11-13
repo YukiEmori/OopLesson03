@@ -67,8 +67,7 @@ namespace SendMailApp {
             //    if (dr == System.Windows.Forms.DialogResult.OK) {
             //        MessageBox.Show("キャンセルしました。");
             //        this.Close();
-            //    }
-           
+            //    }　
             //}
             
             
