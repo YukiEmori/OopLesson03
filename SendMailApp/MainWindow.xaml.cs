@@ -61,12 +61,17 @@ namespace SendMailApp {
                         msg.Bcc.Add(item);
                     }
                 }
-                // msg.Bcc.Add(tbBcc.Text);
+                //msg.Bcc.Add(tbBcc.Text);
+
+
+                foreach (var item in addfile.Items) {
+                    msg.Attachments.Add(new Attachment(item.ToString()));
+                }
                 //string jpgname = addfile.Items.ToString();
                 //System.Net.Mail.Attachment attachment;
                 //attachment = new System.Net.Mail.Attachment(jpgname);
-
                 //msg.Attachments.Add(attachment);
+
                 msg.Subject = tbTitle.Text; //件名
                 msg.Body = tbBody.Text; //本文
 
