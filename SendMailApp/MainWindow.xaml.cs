@@ -53,6 +53,7 @@ namespace SendMailApp {
                         msg.CC.Add(item);
                     }
                 }
+                
                 //msg.CC.Add(tbCc.Text);
 
                 if(tbBcc.Text != "") {
