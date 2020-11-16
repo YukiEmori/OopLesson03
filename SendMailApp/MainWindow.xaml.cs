@@ -63,7 +63,7 @@ namespace SendMailApp {
                 }
                 //msg.Bcc.Add(tbBcc.Text);
 
-
+                //追加したデータをmsgに格納する
                 foreach (var item in addfile.Items) {
                     msg.Attachments.Add(new Attachment(item.ToString()));
                 }
@@ -115,11 +115,17 @@ namespace SendMailApp {
             Config.GetInstance().Serialise();
         }
 
+        //ファイルを追加する
         private void addfileBT_Click(object sender, RoutedEventArgs e) {
             var fod = new OpenFileDialog();
             if(fod.ShowDialog() == true) {
                 addfile.Items.Add(fod.FileName);
             }
+        }
+
+        //選択した要素を削除する
+        private void deletefileBT_Click(object sender, RoutedEventArgs e) {
+            addfile.Items.Remove(addfile.SelectedItem);
         }
     }
 }

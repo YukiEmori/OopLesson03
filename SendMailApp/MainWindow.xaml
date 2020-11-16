@@ -39,7 +39,7 @@
         <Label Content="添付ファイル:" Grid.Row="0" Grid.Column="2" Height="26" VerticalAlignment="Center"/>
         <ListBox x:Name="addfile" Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" Margin="5" />
         <Button x:Name="addfileBT" Grid.Row="2" Grid.Column="2" Margin="3" Content="追加" Click="addfileBT_Click"/>
-        <Button x:Name="deletefileBT" Grid.Row="3" Grid.Column="2" Margin="3" Content="削除"/>
+        <Button x:Name="deletefileBT" Grid.Row="3" Grid.Column="2" Margin="3" Content="削除" Click="deletefileBT_Click"/>
 
         <StackPanel  Grid.Row="5" Grid.Column="1" Margin="4" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btCancel" Content="キャンセル" Width="100" Margin="4" Click="btCancel_Click"/>
